@@ -7,5 +7,5 @@
       (format-directive (car directives))
       (reduce (lambda (a b)
 		(let ((final-a (if (listp a) (format-directive a) a)))
-		  (concatenate 'string final-a  (format-directive b))))
+		  (concatenate 'string final-a (format-directive b))))
 	      directives)))
