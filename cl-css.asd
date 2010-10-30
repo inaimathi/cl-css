@@ -22,11 +22,11 @@
 
 (defpackage "CL-CSS-SYSTEM" (:use :cl :asdf))
 (in-package :cl-css-system)
-(defsystem formlets
+(defsystem cl-css
   :version "0.1"
   :author "leo.zovic@gmail.com"
   :maintainer "leo.zovic@gmail.com"
   :licence "MIT-style"
-  :description "Validating formlets for Hunchentoot"
+  :description "Simple inline CSS generator"
   :components ((:file "package")
-	       (:file "css" :depends-on ("package"))))
+	       (:file "cl-css" :depends-on ("package"))))
