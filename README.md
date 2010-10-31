@@ -72,15 +72,8 @@ You can reference this flat file from your web-app (or host it from a non-lisp s
 ### Noted bad stuff or non-goals
 
 + No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '(body :magrin 5px))`, you'll get no help.
-+ Case insensitivity. Like Common Lisp itself, cl-css is case insensitive (unlike common lisp, it converts everything to lower-case instead of upper-case), so you can't rely on camel-casing to differentiate directives. This is true even for directives you pass as strings. To illustrate
++ Case insensitivity. Like Common Lisp itself, cl-css is case insensitive (unlike common lisp, it converts everything to lower-case instead of upper-case), so you can't rely on camel-casing to differentiate directives. This is true even for directives you pass as strings.
 
-
-	> (css `((.sideBar ,@slim-box :background-color \#0F0)
-	         (.FLOAT-BOX ,@slim-box :background-color \#00FFAA :font-weight bold)))
-
-	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
-	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00ffaa; font-weight: bold; }
-	"
 
 ### Trivia
 
