@@ -29,7 +29,7 @@ You can stitch things into the directives you pass to `css`. Whether variables
 
 	SLIM-BOX
 
-	> (css '((.sidebar ,@slim-box :background-color \#0f0)
+	> (css `((.sidebar ,@slim-box :background-color \#0f0)
 	         (.float-box ,@slim-box :background-color \#00f :font-weight bold)))
 
 	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
@@ -43,7 +43,7 @@ or functions
 	
 	SM-BOX
 	
-	> (css '((.sidebar ,@(sm-box))
+	> (css `((.sidebar ,@(sm-box))
 	         (.float-box ,@(sm-box \#00f) :font-weight bold)))
 		 
 	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
@@ -57,4 +57,4 @@ or functions
 
 ### Trivia
 
-As of this writing, the license for this module each outweighs the lines of code in the actual program.
+As of this writing, the license for this module outweighs the actual program in terms of line count.
