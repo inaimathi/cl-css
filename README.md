@@ -23,7 +23,7 @@ Both cases are handled as strings.
 
 ### Boilerplate reduction
 
-You can stitch things into the directives you pass to `css`. Whether variables
+You can stitch things into the directives you pass to `css` to eliminate repetition. Whether variables
 
 	> (defvar slim-box '(:margin 0px :padding 0px :border "1px solid #f00"))
 
