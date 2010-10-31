@@ -50,11 +50,35 @@ or functions
 	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00f; font-weight: bold; }
 	"
 
+### Compilation
+
+A function called `compile-css` is provided that generates a file based on your cl-css markup.
+
+	> (defvar page-css `((.sidebar ,@(sm-box))
+	                     (.float-box ,@(sm-box \#00f) :font-weight bold)))
+	
+	PAGE-CSS
+	
+	> (compile-css "/home/user-name/page-style.css" page-css)
+	
+There will now be a file at `/home/user-name/` named `page-style.css` that contains
+
+	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
+	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00f; font-weight: bold; }
+	"
+You can reference this flat file from your web-app (or host it from a non-lisp server like Apache or nginx) to save some time in generating your styles.
+	
+
 ### Noted bad stuff or non-goals
 
-+ The current version of cl-css does all work at runtime. Ideally, there would be a cursory parse during compile time to check if anything can be nailed down at that point. 
 + No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '(body :magrin 5px))`, you'll get no help.
++ Case insensitivity. Like Common Lisp itself, cl-css is case insensitive, so you can't rely on camel-casing to differentiate directives. This is true even for directives you pass as strings. To illustrate
+
+	> (css `((.sideBarBox :border "1px solid #00FFAA" :margin 12px)))
+	
+	".sidebarbox { border: 1px solid #00ffaa; margin: 12px; }
+	"
 
 ### Trivia
 
-As of this writing, the license for this module outweighs the actual program in terms of line count.
+As of this writing, the license for this module still outweighs the actual program in terms of line count.

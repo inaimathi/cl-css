@@ -9,3 +9,7 @@
 		(let ((final-a (if (listp a) (format-directive a) a)))
 		  (concatenate 'string final-a (format-directive b))))
 	      directives)))
+
+(defun compile-css (file-path directives)
+  (with-open-file (stream file-path :direction :output :if-exists :supersede :if-does-not-exist :create) 
+    (format stream (css directives))))
