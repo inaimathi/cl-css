@@ -12,6 +12,14 @@ Use the `css` function to convert a list of directives into a CSS string for out
 	"body { margin: 5px; padding: 0px; }
 	"
 
+### Inline usage
+
+Use the `inline-css` function to convert a single, selector-free directive into contents appropriate for a `style` property
+
+        > (inline-css '(:margin 5px :padding 0px))
+	
+	"margin: 5px; padding: 0px;"
+
 ### Compound Selectors and Properties
 
 Both cases are handled as strings.
