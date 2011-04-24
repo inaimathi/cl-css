@@ -12,13 +12,28 @@ Use the `css` function to convert a list of directives into a CSS string for out
 	"body { margin: 5px; padding: 0px; }
 	"
 
-### Inline usage
+### Inline Usage
 
 Use the `inline-css` function to convert a single, selector-free directive into contents appropriate for a `style` property
 
         > (inline-css '(:margin 5px :padding 0px))
 	
 	"margin: 5px; padding: 0px;"
+
+### Compiled Usage
+
+A function called `compile-css` is provided that generates a file based on your cl-css markup.
+
+	> (compile-css "/home/user-name/page-style.css" '((body :margin 5px :padding 0px)))
+	
+	NIL
+	
+There will now be a file at `/home/user-name/` named `page-style.css` that contains
+
+	"body { margin: 5px; padding: 0px; }
+	"
+
+You can reference this flat file from your web-app (or host it from a non-lisp server like Apache or nginx) to save some time in generating your styles. If the directory you compile to doesn't exist, `compile-css` will attempt to create it before compiling the file.
 
 ### Compound Selectors and Properties
 
@@ -57,29 +72,11 @@ or functions
 	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
 	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00f; font-weight: bold; }
 	"
-
-### Compilation
-
-A function called `compile-css` is provided that generates a file based on your cl-css markup.
-
-	> (defvar page-css `((.sidebar ,@(sm-box))
-	                     (.float-box ,@(sm-box \#00f) :font-weight bold)))
-	
-	PAGE-CSS
-	
-	> (compile-css "/home/user-name/page-style.css" page-css)
-	
-There will now be a file at `/home/user-name/` named `page-style.css` that contains
-
-	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
-	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00f; font-weight: bold; }
-	"
-You can reference this flat file from your web-app (or host it from a non-lisp server like Apache or nginx) to save some time in generating your styles.
 	
 
 ### Noted bad stuff or non-goals
 
-+ No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '(body :magrin 5px))`, you'll get no help.
++ No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '((body :magrin 5px)))` or `(inlne-css '(:margin 5 :padding 5))`, you'll get no help.
 + Case insensitivity. Like Common Lisp itself, cl-css is case insensitive (unlike common lisp, it converts everything to lower-case instead of upper-case), so you can't rely on camel-casing to differentiate directives. This is true even for directives you pass as strings.
 
 
