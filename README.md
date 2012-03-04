@@ -44,6 +44,20 @@ Both cases are handled as strings.
 	"body h1 .header { margin: 5px 0px 0px 5px; }
 	"
 
+### Case (in)Sensitivity
+
+All output is downcased, with the exception of selectors specified as strings.
+
+        > (css `((.someCrazyClassName :width 30PX)))
+	
+	".somecrazyclassname { width: 30px; }
+	"
+	
+	> (css `((".someCrazyClassName" :width 30px)))
+	
+	".someCrazyClassName { width: 30px; }
+	"
+
 ### Boilerplate reduction
 
 You can stitch things into the directives you pass to `css` to eliminate repetition. Whether variables
@@ -72,14 +86,19 @@ or functions
 	".sidebar { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #0f0; }
 	.float-box { margin: 0px; padding: 0px; border: 1px solid #f00; background-color: #00f; font-weight: bold; }
 	"
+
+### CSS3 Cross-Browser Abstractions
+
+The CSS3 transform property is handled very slightly differently in each of the major browsers. `cl-css` provides a number of functions to make this easier. For example
+
+        > (css `((.crazy-box ,@(translate 35 35))))
 	
+	".crazy-box { transform: translate(35px, 35px); -ms-transform: translate(35px, 35px); -webkit-transform: translate(35px, 35px); -o-transform: translate(35px, 35px); -moz-transform: translate(35px, 35px); }
+        "
+A number of similar functions are provided out of the box for other `transform` directive options. These include `transform-origin`, `rotate`, `scale`, `skew` and `matrix`. The list is not exhaustive, even in terms of new CSS3 selectors, let alone abstracting directives for older browsers, but it should be fairly straightforward to define more of your own (feel free to send appropriate patches if you do end up using other directives).
+
 
 ### Noted bad stuff or non-goals
 
 + No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '((body :magrin 5px)))` or `(inlne-css '(:margin 5 :padding 5))`, you'll get no help.
-+ Case insensitivity. Like Common Lisp itself, cl-css is case insensitive (unlike common lisp, it converts everything to lower-case instead of upper-case), so you can't rely on camel-casing to differentiate directives. This is true even for directives you pass as strings.
-
-
-### Trivia
-
-As of this writing, the license for this module still outweighs the actual program in terms of line count.
++ Case insensitivity has been solved for CSS selectors, but directives are still fully downcased. The only place this potentially bites is when specifying `font-family` (where it's impossible to say `Times-New-Roman`, for example).

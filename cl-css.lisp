@@ -1,14 +1,18 @@
 (in-package :cl-css)
 
-(defun format-directive (d) (format nil "~(~a { ~{~a: ~a; ~}}~)~%" (car d) (cdr d)))
+;;;;;;;;;; helpers
+(defun render-selector (s)
+  (if (symbolp s) (string-downcase (symbol-name s)) s))
+
+(defun format-directive (d) 
+  (format nil "~a { ~{~(~a: ~a;~) ~}}~%" (render-selector (car d)) (cdr d)))
+
+;;;;;;;;;; generators
+(defun inline-css (directive) (format nil "~(~{ ~a: ~a; ~}~)" directive))
 
 (defun css (directives)
-  (if (= 1 (length directives))
-      (format-directive (car directives))
-      (reduce (lambda (a b) (concatenate 'string a (format-directive b)))
-	      (cons "" directives))))
-
-(defun inline-css (directive) (format nil "~(~{ ~a: ~a; ~}~)" directive))
+  (reduce (lambda (a b) (concatenate 'string a (format-directive b)))
+	      (cons "" directives)))
 
 (defun compile-css (file-path directives)
   (ensure-directories-exist file-path)
