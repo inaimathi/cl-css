@@ -46,16 +46,16 @@ Both cases are handled as strings.
 
 ### Case (in)Sensitivity
 
-All output is downcased, with the exception of selectors specified as strings.
+All output is downcased, with the exception of selectors and values specified as strings.
 
-        > (css `((.someCrazyClassName :width 30PX)))
+        > (css `((.someCrazyClassName :width 30PX :font-family :Helvetica)))
 	
-	".somecrazyclassname { width: 30px; }
+	".somecrazyclassname { width: 30px; font-family: helvetica; }
 	"
 	
-	> (css `((".someCrazyClassName" :width 30px)))
+	> (css `((".someCrazyClassName" :width 30px :font-family "Helvetica")))
 	
-	".someCrazyClassName { width: 30px; }
+	".someCrazyClassName { width: 30px; font-family: Helvetica }
 	"
 
 ### Boilerplate reduction
@@ -95,10 +95,9 @@ The CSS3 transform property is handled very slightly differently in each of the 
 	
 	".crazy-box { transform: translate(35px, 35px); -ms-transform: translate(35px, 35px); -webkit-transform: translate(35px, 35px); -o-transform: translate(35px, 35px); -moz-transform: translate(35px, 35px); }
         "
-A number of similar functions are provided out of the box for other `transform` directive options. These include `transform-origin`, `rotate`, `scale`, `skew` and `matrix`. The list is not exhaustive, even in terms of new CSS3 selectors, let alone abstracting directives for older browsers, but it should be fairly straightforward to define more of your own (feel free to send appropriate patches if you do end up using other directives).
+A number of similar functions are provided out of the box for other `transform`, `3d-transform`, `animation` and `transition` directive options. These include `transform-origin`, `rotate`, `scale`, `skew` and `matrix`, `perspective`, `perspective-origin`, `keyframes`, `animation` and `transition`. The list is not exhaustive, even in terms of new CSS3 selectors, let alone abstracting directives for older browsers, but it should be fairly straightforward to define more of your own (feel free to send appropriate patches if you do end up using other directives).
 
 
 ### Noted bad stuff or non-goals
 
 + No validation is done. If you provide the incorrect number of arguments, you'll get an error, but if you try something like `(css '((body :magrin 5px)))` or `(inlne-css '(:margin 5 :padding 5))`, you'll get no help.
-+ Case insensitivity has been solved for CSS selectors, but directives are still fully downcased. The only place this potentially bites is when specifying `font-family` (where it's impossible to say `Times-New-Roman`, for example).
