@@ -1,9 +1,9 @@
 (defpackage :cl-css
   (:nicknames "MINI-CSS")
   (:use :cl)
-  (:export :css :inline-css :compile-css
-	   :transform-origin :rotate :scale :skew :translate :matrix)
+  (:export 
+   :css :inline-css :compile-css
+   :transform-origin :rotate :scale :skew :translate :matrix
+   :perspective :perspective-origin :backface-visibility :transform-style :matrix3d :translate3d :scale3d :rotate3d
+   :keyframes :animation :transition)
   (:documentation "A non-validating, inline CSS generator for common lisp"))
-
-(in-package :cl-css)
-(defparameter *browser-prefixes* '(-ms- -o- -webkit- -moz-))

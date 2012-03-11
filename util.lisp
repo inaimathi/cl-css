@@ -16,7 +16,7 @@
 (defmethod %-or-word ((val string)) val)
 (defmethod %-or-word ((val null)) nil)
 
-(defmacro split-directive (directive-name value &optional (prefix-list *browser-prefixes*))
+(defmacro split-directive (directive-name value &optional (prefix-list '(-ms- -o- -webkit- -moz-)))
   (with-gensyms (val)
     `(let ((,val ,value)) 
        (list ,directive-name ,val
