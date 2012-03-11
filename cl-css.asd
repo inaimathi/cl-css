@@ -20,13 +20,14 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;; THE SOFTWARE.
 
-(defpackage "CL-CSS-SYSTEM" (:use :cl :asdf))
-(in-package :cl-css-system)
-(defsystem cl-css
+(asdf:defsystem #:cl-css
+  :serial t
   :version "0.1"
   :author "leo.zovic@gmail.com"
   :maintainer "leo.zovic@gmail.com"
   :licence "MIT-style"
   :description "Simple inline CSS generator"
-  :components ((:file "package")
-	       (:file "cl-css" :depends-on ("package"))))
+  :components ((:file "package") (:file "util") (:file "cl-css")
+	       (:file "css3-transform") 
+	       (:file "css3-3d-transform")
+	       (:file "css3-animations+transitions")))

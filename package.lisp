@@ -4,3 +4,6 @@
   (:export :css :inline-css :compile-css
 	   :transform-origin :rotate :scale :skew :translate :matrix)
   (:documentation "A non-validating, inline CSS generator for common lisp"))
+
+(in-package :cl-css)
+(defparameter *browser-prefixes* '(-ms- -o- -webkit- -moz-))
