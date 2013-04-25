@@ -18,10 +18,8 @@
 	 'string 
 	 (loop with remaining = list-of-declarations
 	    for head = (pop remaining) 
-	    if (listp head)
-	      collect (format-rule (car head) (cdr head))
-	    else
-	      collect (format-declaration head (pop remaining))
+	    if (listp head) collect (format-rule (car head) (cdr head))
+	    else collect (format-declaration head (pop remaining))
 	    collect " "
 	    while remaining)))
 
