@@ -11,14 +11,19 @@
   (concatenate 'string (symbol->d-string property) " { " (format-declarations-list value) "}"))
 (defmethod format-declaration ((property list) (v null))
   (declare (ignore v))
-  (format-declarations-list property ))
+  (format-declarations-list property))
 
 (defun format-declarations-list (list-of-declarations)
   (apply #'concatenate 
 	 'string 
-	 (loop for (prop val) on list-of-declarations by #'cddr
-	       collect (format-declaration prop val)
-	       collect " ")))
+	 (loop with remaining = list-of-declarations
+	    for head = (pop remaining) 
+	    if (listp head)
+	      collect (format-rule (car head) (cdr head))
+	    else
+	      collect (format-declaration head (pop remaining))
+	    collect " "
+	    while remaining)))
 
 (defun format-rule (selector declarations)
   (concatenate 'string (format-selector selector) 
@@ -31,8 +36,8 @@
   (apply #'concatenate 
 	 'string 
 	 (loop for r in rules
-	       collect (format-rule (car r) (cdr r))
-	       collect (list #\Newline))))
+	    collect (format-rule (car r) (cdr r))
+	    collect (list #\Newline))))
 
 (defun compile-css (file-path directives)
   (ensure-directories-exist file-path)
