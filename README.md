@@ -48,7 +48,7 @@ Both cases are handled as strings.
 
 All output is downcased, with the exception of selectors and values specified as strings.
 
-        > (css `((.someCrazyClassName :width 30PX :font-family :Helvetica)))
+	> (css `((.someCrazyClassName :width 30PX :font-family :Helvetica)))
 	
 	".somecrazyclassname { width: 30px; font-family: helvetica; }
 	"
@@ -56,6 +56,25 @@ All output is downcased, with the exception of selectors and values specified as
 	> (css `((".someCrazyClassName" :width 30px :font-family "Helvetica")))
 	
 	".someCrazyClassName { width: 30px; font-family: Helvetica }
+	"
+
+### Nested Terms
+
+Sublists are interpreted as nested CSS rules. This is useful in places like `@media` directives.
+
+	> (css '(("@media screen and (max-width: 720px)" ("body" :padding 1em))))
+	
+	"@media screen and (max-width: 720px) { body { padding: 1em; } }
+	"
+	
+	> (css '(("@media screen and (max-width: 720px)" 
+		  (body :padding 1em :margin 2em) 
+		  (.header :background-color :blue) 
+		  :font-family "Helvetica")
+		 (body :padding 10px :margin 15px)))
+		 
+	"@media screen and (max-width: 720px) { body { padding: 1em; margin: 2em; } .header { background-color: blue; } font-family: Helvetica; }
+	body { padding: 10px; margin: 15px; }
 	"
 
 ### Boilerplate reduction
