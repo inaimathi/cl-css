@@ -3,6 +3,8 @@
 (defmethod format-selector ((s symbol)) (symbol->d-string s))
 (defmethod format-selector ((s string)) s)
 
+(defmethod format-declaration (property (value number))
+  (format nil "~(~a~): ~a;" property value))
 (defmethod format-declaration (property (value string))
   (concatenate 'string (symbol->d-string property) ": " value ";"))
 (defmethod format-declaration (property (value symbol))
