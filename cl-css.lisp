@@ -43,3 +43,9 @@
   (ensure-directories-exist file-path)
   (with-open-file (stream file-path :direction :output :if-exists :supersede :if-does-not-exist :create) 
     (format stream (css directives))))
+
+;;;;;;;;;; unit helpers
+
+(defun px (val) (format nil "~apx" val))
+(defun % (val) (format nil "~a%" val))
+(defun em (val) (format nil "~aem" val))
